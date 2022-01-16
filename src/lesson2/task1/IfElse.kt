@@ -1,9 +1,11 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_PARAMETER", "UNREACHABLE_CODE", "UNUSED_EXPRESSION")
 
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import java.lang.UnsupportedOperationException
 import kotlin.math.max
+
 import kotlin.math.sqrt
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -68,7 +70,14 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    if (age == 0 || age == 111 || age in 11..14) return "$age лет"
+    if (age == 1 || age % 10 == 1) return "$age год"
+    if (age in 2..4 || age % 10 in 2..4) return "$age года"
+    else return "$age лет"
+
+}
+
 
 /**
  * Простая (2 балла)
@@ -81,7 +90,17 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val s = ((t1 * v1) + (t2 * v2) + (t3 * v3)) / 2
+
+    if (s <= t1 * v1)
+        return s / v1
+
+    if (s > t1 * v1 && s < t1 * v1 + t2 * v2)
+        return t1 + (s - t1 * v1) / v2
+    //else
+    return t1 + t2 + (s - t1 * v1 - t2 * v2) / v3
+}
 
 /**
  * Простая (2 балла)
@@ -96,7 +115,16 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    var result = 0
+    if (rookX1 == kingX || rookY1 == kingY) {
+        result++
+    }
+    if (rookX2 == kingX || rookY2 == kingY) {
+        result += 2
+    }
+    return result
+}
 
 /**
  * Простая (2 балла)
@@ -112,7 +140,23 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    var result = 0
+    if (rookX == kingX || rookY == kingY) {
+        result++
+    }
+    if (mod(bishopX - kingX) == mod(bishopY - kingY)) {
+        result += 2
+    }
+    return result
+
+}
+
+fun mod(x: Int): Int = if (x > 0) {
+    x
+} else {
+    -x
+}
 
 /**
  * Простая (2 балла)
@@ -122,7 +166,25 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+
+
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+//    if (a + b <= c || a + c <= b || c + b <= a) {
+//        return -1
+//    }
+//    var max: Double
+//    var other: Double
+//    var another: Double
+//
+//    if (a > b && a > c) {
+//
+//    } else if (b > a && b > c) {
+//
+//    } else {
+//
+//    }
+    throw UnsupportedOperationException()
+}
 
 /**
  * Средняя (3 балла)
@@ -132,4 +194,17 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    if (b < c || d < a) return -1
+    val maxLeft = if (a >= c) {
+        a
+    } else {
+        c
+    }
+    val minRight = if (b <= d) {
+        b
+    } else {
+        d
+    }
+    return minRight - maxLeft
+}

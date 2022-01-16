@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_PARAMETER", "DEPRECATED_IDENTITY_EQUALS")
 
 package lesson3.task1
 
@@ -21,6 +21,7 @@ fun factorial(n: Int): Double {
     }
     return result
 }
+
 
 /**
  * Пример
@@ -64,6 +65,20 @@ fun digitCountInNumber(n: Int, m: Int): Int =
         else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
     }
 
+fun digitCountInNumber2(n: Int, m: Int): Int {
+    var count = 0
+    var number = n
+    do {
+        val digit = number % 10
+        if (m == digit) {
+            count++
+        }
+        number /= 10
+    } while (number > 0)
+    return count
+}
+
+
 /**
  * Простая (2 балла)
  *
@@ -72,7 +87,19 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var count = 0
+    var number = n
+    if (number == 0) {
+        return 1
+    }
+    while (number > 0) {
+        number /= 10
+        count++
+    }
+    return count
+}
+
 
 /**
  * Простая (2 балла)
@@ -80,21 +107,47 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int =
+    if (n <= 2) 1
+    else fib(n - 2) + fib(n - 1)
+
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    //val m = 3
+    var m = 3
+    if (n % 2 == 0)
+        return 2
+    else
+        while (n % m !== 0) {
+            m = m + 2
+        }
+    return m
+
+
+
+
+
+}
+
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    for (m in n / 2 downTo 1) {
+        if (n % m == 0) {
+            return m
+        }
+    }
+    return 1
+}
 
 /**
  * Простая (2 балла)
