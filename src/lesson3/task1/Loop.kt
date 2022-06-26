@@ -2,6 +2,9 @@
 
 package lesson3.task1
 
+import lesson2.task1.mod
+import lesson2.task1.mod2
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -129,9 +132,6 @@ fun minDivisor(n: Int): Int {
     return m
 
 
-
-
-
 }
 
 
@@ -165,7 +165,20 @@ fun maxDivisor(n: Int): Int {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var count = 0
+    var m = x
+    while (m > 1) {
+        if (m % 2 == 0) {
+            m /= 2
+        } else {
+            m = 3 * m + 1
+        }
+        count += 1
+
+    }
+    return count
+}
 
 /**
  * Средняя (3 балла)
@@ -173,7 +186,21 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var x = 0
+    var c = 0
+    x = if (n >= m) {
+        n
+    } else {
+        m
+    }
+    for (i in 1..x) {
+        if (n % i == 0 && m % i == 0) {
+            c = i
+        }
+    }
+    return (m * n / c)
+}
 
 /**
  * Средняя (3 балла)
@@ -182,7 +209,25 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var x = 0
+    var c = 0
+    x = if (n >= m) {
+        n
+    } else {
+        m
+    }
+    for (i in x downTo 2) {
+        if (n % i == 0 && m % i == 0) {
+            c = i
+            break
+        } else {
+            c = 1
+        }
+    }
+    return c == 1
+}
+
 
 /**
  * Средняя (3 балла)
@@ -191,7 +236,18 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var x = 0
+    var n2 = 0
+    var n1 = n
+    while (n1 > 0) {
+        x = n1 % 10
+        n1 = n1 / 10
+        n2 = n2 * 10
+        n2 = n2 + x
+    }
+    return n2
+}
 
 /**
  * Средняя (3 балла)
@@ -202,7 +258,7 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 
 /**
  * Средняя (3 балла)
@@ -212,7 +268,19 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val a = n % 10
+    var b = n
+    while (b != 0) {
+        val c = b % 10
+        if (a != c) {
+            return true
+        }
+        b /= 10
+    }
+    return false
+
+}
 
 /**
  * Средняя (4 балла)
@@ -223,7 +291,33 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var st = -1.0
+    var stSt = 2.0
+    var z = 1
+    var chlen = 0.0
+    var stSt2 = 2.0
+    var sins2 = 0.0
+    var a = true
+    var sign = 1
+    while (a) {
+        if (!a) {
+            break
+        }
+        chlen = (st.pow(stSt) * (x.pow(z))) / factorial(z)
+        z += 2
+        stSt += 1
+        a = mod2(chlen) > eps
+        sign = sign * -1
+    }
+
+    for (m in 1..z step 2) {
+        val sins = (st.pow(stSt2) * (x.pow(m))) / factorial(m)
+        stSt2 = stSt2 + 1
+        sins2 = sins2 + sins
+    }
+    return sins2
+}
 
 /**
  * Средняя (4 балла)

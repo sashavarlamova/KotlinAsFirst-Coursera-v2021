@@ -158,6 +158,18 @@ fun mod(x: Int): Int = if (x > 0) {
     -x
 }
 
+fun mod2(x: Double): Double = if (x > 0) {
+    x
+} else {
+    -x
+}
+
+//fun modd(x: Number): Number = if (x > 0) {
+//    x
+//} else {
+//    -x
+//}
+
 /**
  * Простая (2 балла)
  *
